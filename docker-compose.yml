@@ -1,0 +1,6 @@
+﻿services:
+  fyropinonet:
+    image: fyropinonet
+    build:
+      context: .
+      dockerfile: fyropinonet/Dockerfile
