@@ -1,0 +1,28 @@
+@model List<Hero>
+
+<div>
+    <div>
+        <div>
+            <h1>Heroes</h1>
+        </div>
+    </div>
+</div>
+
+
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var obj in Model.OrderBy(x => x.Name))
+    {
+    <tr>
+        <td>@obj.Name</td>
+    </tr>
+    }
+    </tbody>
+
+</table>
