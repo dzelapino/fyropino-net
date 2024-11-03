@@ -1,4 +1,6 @@
 using fyropinonet.Controllers.Data;
+using fyropinonet.Interface;
+using fyropinonet.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,10 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<IContractorServices, ContractorService>();
 
 var app = builder.Build();
 

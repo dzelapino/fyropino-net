@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fyropinonet.Controllers.Data;
 
@@ -10,9 +11,11 @@ using fyropinonet.Controllers.Data;
 namespace fyropinonet.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241103160641_CreateContractor")]
+    partial class CreateContractor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,9 +48,6 @@ namespace fyropinonet.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -68,9 +68,48 @@ namespace fyropinonet.Migrations
                             Color = "green",
                             Email = "dzelapino@mail.su",
                             FullName = "dzelapino sp. zło",
-                            IsActive = true,
                             Phone = "500500100",
                             ShortName = "dzelapino"
+                        });
+                });
+
+            modelBuilder.Entity("fyropinonet.Models.Hero", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsForceUser")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Heroes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsForceUser = true,
+                            Name = "Darth Jar Jar"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsForceUser = true,
+                            Name = "Jedi Bob"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsForceUser = false,
+                            Name = "Gonk"
                         });
                 });
 #pragma warning restore 612, 618

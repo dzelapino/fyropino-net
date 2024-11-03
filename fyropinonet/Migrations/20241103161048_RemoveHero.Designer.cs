@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fyropinonet.Controllers.Data;
 
@@ -10,9 +11,11 @@ using fyropinonet.Controllers.Data;
 namespace fyropinonet.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241103161048_RemoveHero")]
+    partial class RemoveHero
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,9 +48,6 @@ namespace fyropinonet.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -68,7 +68,6 @@ namespace fyropinonet.Migrations
                             Color = "green",
                             Email = "dzelapino@mail.su",
                             FullName = "dzelapino sp. zło",
-                            IsActive = true,
                             Phone = "500500100",
                             ShortName = "dzelapino"
                         });

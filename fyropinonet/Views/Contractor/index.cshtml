@@ -1,9 +1,9 @@
-@model List<Hero>
+@model List<Contractor>
 
 <div>
     <div>
         <div>
-            <h1>Heroes</h1>
+            <h1>Contractors</h1>
         </div>
     </div>
 </div>
@@ -17,10 +17,10 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var obj in Model.OrderBy(x => x.Name))
+    @foreach (var obj in Model.OrderBy(x => x.ShortName))
     {
     <tr>
-        <td>@obj.Name</td>
+        <td style="color: @obj.Color;">@obj.ShortName</td>
     </tr>
     }
     </tbody>

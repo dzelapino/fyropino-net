@@ -4,19 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace fyropinonet.Controllers;
 
-public class HeroController : Controller
+public class ContractorController : Controller
 {
     private readonly ApplicationDBContext _context;
 
-    public HeroController(ApplicationDBContext context)
+    public ContractorController(ApplicationDBContext context)
     {
         _context = context;
     }
 
     public IActionResult Index()
     {
-        List<Hero> heroes = _context.Heroes.ToList();
-        
-        return View(heroes);
+        List<Contractor> contractors = _context.Contractors.ToList();
+
+        return View(contractors);
     }
 }

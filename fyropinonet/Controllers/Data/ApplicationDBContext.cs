@@ -7,14 +7,16 @@ public class ApplicationDBContext : DbContext
 {
     public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
     
-    public DbSet<Hero> Heroes { get; set; }
-
+    public DbSet<Contractor> Contractors { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Hero>().HasData(
-            new Hero { Id = 1, Name = "Darth Jar Jar", IsForceUser = true },
-            new Hero { Id = 2, Name = "Jedi Bob", IsForceUser = true },
-            new Hero { Id = 3, Name = "Gonk", IsForceUser = false }
+        modelBuilder.Entity<Contractor>().HasData(
+            new Contractor
+            {
+                Id = 1, Address = "Klonowa 4d/21", Color = "green", Email = "dzelapino@mail.su",
+                ShortName = "dzelapino", FullName = "dzelapino sp. zło", Phone = "500500100"
+            }
         );
     }
 }
