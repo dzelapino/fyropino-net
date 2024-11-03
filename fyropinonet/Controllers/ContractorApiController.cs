@@ -50,7 +50,28 @@ public class ContractorApiController : ControllerBase
         catch (Exception e)
         {
             return StatusCode(500, "An error occured while getting all contractors: " + e.Message);
+        }
+    }
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetContractor(int id)
+    {
+        try
+        {
+            var contractor = await _contractorServices.GetContractorById(id);
+
+            if (contractor == null)
+            {
+                return StatusCode(500, "No contractor with id of: " + id);
+            }
+            else
+            {
+                return Ok(contractor);
+            }
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, "Error while getting contractor by id: " + e.Message);
         }
     }
 }

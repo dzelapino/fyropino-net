@@ -30,7 +30,15 @@ public class ContractorService : IContractorServices
 
     public Task<Contractor> GetContractorById(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var contractor = _context.Contractors.Find(id);
+            return Task.FromResult(contractor);
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Unable to get creator by id: " + id);
+        }
     }
 
     public async Task CreateContractor(CreateContractorRequest createContractorRequest)
