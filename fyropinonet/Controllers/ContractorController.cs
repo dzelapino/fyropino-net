@@ -19,4 +19,30 @@ public class ContractorController : Controller
 
         return View(contractors);
     }
+    
+    [HttpGet]
+    public IActionResult Add()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(AddContractorViewModel viewModel)
+    {
+
+        var contractor = new Contractor()
+        {
+            ShortName = viewModel.ShortName,
+            FullName = viewModel.FullName,
+            Address = viewModel.Address,
+            Color = viewModel.Color,
+            Email = viewModel.Email,
+            Phone = viewModel.Phone
+        };
+
+        await _context.Contractors.AddAsync(contractor);
+        await _context.SaveChangesAsync();
+        
+        return RedirectToAction("Index");
+    }
 }
