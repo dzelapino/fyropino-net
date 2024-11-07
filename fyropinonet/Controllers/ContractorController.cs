@@ -45,4 +45,55 @@ public class ContractorController : Controller
         
         return RedirectToAction("Index");
     }
+
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var contractor = await _context.Contractors.FindAsync(id);
+
+        if (contractor is not null)
+        {
+            return View(contractor);
+        }
+        else
+        {
+            return RedirectToAction("Index");
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(Contractor contractorViewModel)
+    {
+        var contractor = await _context.Contractors.FindAsync(contractorViewModel.Id);
+
+        if (contractor is not null)
+        {
+            contractor.ShortName = contractorViewModel.ShortName;
+            contractor.FullName = contractorViewModel.FullName;
+            contractor.Address = contractorViewModel.Address;
+            contractor.Color = contractorViewModel.Color;
+            contractor.Email = contractorViewModel.Email;
+            contractor.Phone = contractorViewModel.Phone;
+            contractor.IsActive = contractorViewModel.IsActive;
+            
+            await _context.SaveChangesAsync();
+        }
+        
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(Contractor contractorViewModel)
+    {
+        var contractor = await _context.Contractors.FindAsync(contractorViewModel.Id);
+
+        if (contractor is not null)
+        {
+            _context.Contractors.Remove(contractor);
+            await _context.SaveChangesAsync();
+        }
+        
+        return RedirectToAction("Index");
+    }
 }
