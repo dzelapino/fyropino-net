@@ -14,9 +14,15 @@ public class ContractorController : Controller
     }
 
     public IActionResult Index()
+    { 
+        return RedirectToAction("List");
+    }
+
+    [HttpGet]
+    public IActionResult List()
     {
         List<Contractor> contractors = _context.Contractors.ToList();
-
+        
         return View(contractors);
     }
     
@@ -43,7 +49,7 @@ public class ContractorController : Controller
         await _context.Contractors.AddAsync(contractor);
         await _context.SaveChangesAsync();
         
-        return RedirectToAction("Index");
+        return RedirectToAction("List");
     }
 
 
@@ -58,7 +64,7 @@ public class ContractorController : Controller
         }
         else
         {
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
     }
 
@@ -80,7 +86,7 @@ public class ContractorController : Controller
             await _context.SaveChangesAsync();
         }
         
-        return RedirectToAction("Index");
+        return RedirectToAction("List");
     }
 
     [HttpPost]
@@ -94,6 +100,6 @@ public class ContractorController : Controller
             await _context.SaveChangesAsync();
         }
         
-        return RedirectToAction("Index");
+        return RedirectToAction("List");
     }
 }

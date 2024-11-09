@@ -1,0 +1,21 @@
+@model List<Contractor>
+
+<div>
+    <div>
+        <div>
+            <h1>Contractors</h1>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    @foreach (var obj in Model.OrderBy(x => x.ShortName))
+    {
+    <div>
+        <td style="color: @obj.Color;">@obj.ShortName</td>
+        <a class="btn btn-outline-primary" asp-controller="Contractor" asp-action="Edit" asp-route-id="@obj.Id">Edit</a>
+    </div>
+    }
+</div>
