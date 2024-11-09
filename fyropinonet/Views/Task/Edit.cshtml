@@ -1,0 +1,40 @@
+@model fyropinonet.Models.Task
+
+<form method="post">
+
+    <div>
+        <h1>Edit Task</h1>
+
+        <div>
+
+            <div>
+                <label for="idInput" class="form-label">Id</label>
+                <input id="idInput" type="text" class="form-control" asp-for="Id" readonly="readonly"/>
+            </div>
+            
+            <div>
+                <label for="nameInput" class="form-label">Name</label>
+                <input id="nameInput" type="text" class="form-control" asp-for="Name"/>
+            </div>
+            
+            <div>
+                <label for="startDateInput" class="form-label">Start Date</label>
+                <input id="startDateInput" type="datetime-local" class="form-control" asp-for="StartDate"/>
+            </div>
+
+            <div>
+                <label for="endDateInput" class="form-label">End Date</label>
+                <input id="endDateInput" type="datetime-local" class="form-control" asp-for="EndDate"/>
+            </div>
+            
+            <div>
+                <button type="submit" class="btn btn-primary">Save</button>
+
+                <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Task">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+</form>

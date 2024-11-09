@@ -49,4 +49,51 @@ public class TaskController : Controller
         
         return RedirectToAction("List");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var task = await _context.Tasks.FindAsync(id);
+
+        if (task is not null)
+        {
+            return View(task);
+        }
+        else
+        {
+            return RedirectToAction("List");
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(Task taskViewModel)
+    {
+        var task = await _context.Tasks.FindAsync(taskViewModel.Id);
+
+        if (task is not null)
+        {
+            
+            task.Name = taskViewModel.Name;
+            task.StartDate = taskViewModel.StartDate;
+            task.EndDate = taskViewModel.EndDate;
+            
+            await _context.SaveChangesAsync();
+        }
+        
+        return RedirectToAction("List");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(Task taskViewModel)
+    {
+        var task = await _context.Tasks.FindAsync(taskViewModel.Id);
+
+        if (task is not null)
+        {
+            _context.Tasks.Remove(task);
+            await _context.SaveChangesAsync();
+        }
+        
+        return RedirectToAction("List");
+    }
 }
