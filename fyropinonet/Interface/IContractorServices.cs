@@ -1,6 +1,7 @@
 using fyropinonet.Contracts;
 using fyropinonet.Migrations;
 using fyropinonet.Models;
+using Task = System.Threading.Tasks.Task;
 
 namespace fyropinonet.Interface;
 

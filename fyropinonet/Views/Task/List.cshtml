@@ -1,0 +1,20 @@
+@model List<fyropinonet.Models.Task>
+
+<div>
+    <div>
+        <div>
+            <h1>Task List</h1>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    @foreach (var obj in Model.OrderBy(x => x.Name))
+    {
+    <div>
+        <td>@obj.Name</td>
+    </div>
+    }
+</div>

@@ -1,6 +1,7 @@
 using AutoMapper;
 using fyropinonet.Contracts;
 using fyropinonet.Models;
+using Task = fyropinonet.Models.Task;
 
 namespace fyropinonet.MappingProfiles;
 

@@ -5,6 +5,7 @@ using fyropinonet.Interface;
 using fyropinonet.Migrations;
 using fyropinonet.Models;
 using Microsoft.EntityFrameworkCore;
+using Task = System.Threading.Tasks.Task;
 
 namespace fyropinonet.Service;
 
