@@ -8,6 +8,13 @@
         <div>
             
             <div>
+                <label for="contractorSelect" class="form-label">Select Contractor</label>
+                <select multiple="multiple" id="contractorSelect" class="form-select" asp-items="Model.ContractorsSelectListItems"
+                        asp-for="SelectedContractorIdList">
+                </select>
+            </div>
+            
+            <div>
                 <label for="nameInput" class="form-label">Name</label>
                 <input id="nameInput" type="text" class="form-control" asp-for="Name"/>
             </div>

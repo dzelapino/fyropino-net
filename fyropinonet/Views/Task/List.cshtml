@@ -14,7 +14,16 @@
     @foreach (var obj in Model.OrderBy(x => x.Name))
     {
     <div>
-        <td>@obj.Name</td>
+        <div>@obj.Name</div>
+        <div>
+            @obj.Contractors.Count
+        </div>
+        <div>
+            @foreach (var contractor in obj.Contractors)
+            {
+                <div>@contractor.ShortName</div>
+            }
+        </div>
         <a class="btn btn-outline-primary" asp-controller="Task" asp-action="Edit" asp-route-id="@obj.Id">Edit</a>
     </div>
     }

@@ -12,14 +12,11 @@ public class ApplicationDBContext : DbContext
     
     public DbSet<Task> Tasks { get; set; }
     
-    // protected override void OnModelCreating(ModelBuilder modelBuilder)
-    // {
-    //     modelBuilder.Entity<Contractor>().HasData(
-    //         new Contractor
-    //         {
-    //             Id = 1, Address = "Klonowa 4d/21", Color = "green", Email = "dzelapino@mail.su",
-    //             ShortName = "dzelapino", FullName = "dzelapino sp. zło", Phone = "500500100"
-    //         }
-    //     );
-    // }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Task>()
+            .HasMany(x => x.Contractors)
+            .WithMany(x => x.Tasks)
+            .UsingEntity(j => j.ToTable("ContractorTask"));
+    }
 }

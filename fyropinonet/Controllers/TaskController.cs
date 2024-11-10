@@ -1,6 +1,8 @@
 using fyropinonet.Controllers.Data;
 using fyropinonet.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Task = fyropinonet.Models.Task;
 
 namespace fyropinonet.Controllers;
@@ -22,7 +24,7 @@ public class TaskController : Controller
     [HttpGet]
     public IActionResult List()
     {
-        List<Task> tasks = _context.Tasks.OrderBy(e => e.Name).ToList();
+        List<Task> tasks = _context.Tasks.Include(t => t.Contractors).ToList();
 
         return View(tasks);
     }
@@ -30,20 +32,43 @@ public class TaskController : Controller
     [HttpGet]
     public IActionResult Add()
     {
-        return View();
+
+        List<Contractor> Contractors = _context.Contractors.ToList();
+        
+        List<SelectListItem> ContractorsSelectListItems = new List<SelectListItem>();
+
+        foreach (var contractor in Contractors)
+        {
+            ContractorsSelectListItems.Add(new SelectListItem
+            {
+                Text = contractor.ShortName,
+                Value = contractor.Id.ToString()
+            });
+        }
+        
+        var model = new AddTaskViewModel(ContractorsSelectListItems);
+        
+        return View(model);
     }
 
     [HttpPost]
     public async Task<IActionResult> Add(AddTaskViewModel viewModel)
     {
         
+        List<string> selectedContractorIdList = viewModel.SelectedContractorIdList;
+        
         var task = new Task()
         {
             Name = viewModel.Name,
             StartDate = viewModel.StartDate,
-            EndDate = viewModel.EndDate
+            EndDate = viewModel.EndDate,
         };
 
+        foreach (var selectedContractorId in selectedContractorIdList)
+        {
+            task.Contractors.Add(_context.Contractors.SingleOrDefault(c => c.Id == int.Parse(selectedContractorId)));
+        }
+        
         await _context.Tasks.AddAsync(task);
         await _context.SaveChangesAsync();
         
