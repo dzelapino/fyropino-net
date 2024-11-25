@@ -1,14 +1,8 @@
 @model List<Contractor>
 
 <div>
-    <div>
-        <div>
-            <h1>Contractors</h1>
-        </div>
-    </div>
+    <h1>Contractors</h1>
 </div>
-
-
 
 <div>
     @foreach (var obj in Model.OrderBy(x => x.ShortName))

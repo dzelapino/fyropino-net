@@ -1,8 +1,10 @@
 using fyropinonet.Controllers.Data;
+using fyropinonet.DataTransferObjects;
 using fyropinonet.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop;
 using Task = fyropinonet.Models.Task;
 
 namespace fyropinonet.Controllers;
@@ -27,6 +29,27 @@ public class TaskController : Controller
         List<Task> tasks = _context.Tasks.Include(t => t.Contractors).ToList();
 
         return View(tasks);
+    }
+    
+    [HttpGet]
+    public IActionResult Calendar()
+    {
+        return View();
+    }
+
+    [HttpGet] 
+    public IActionResult FetchCalendarData()
+    {
+        var model = new List<FullCalendarEvent>();
+        
+        List<Task> tasks = _context.Tasks.Include(t => t.Contractors).ToList();
+
+        foreach (var task in tasks)
+        {
+            model.Add(new FullCalendarEvent(task.Id, task.Name, task.StartDate, task.EndDate));
+        }
+        
+        return new JsonResult(model);
     }
 
     [HttpGet]

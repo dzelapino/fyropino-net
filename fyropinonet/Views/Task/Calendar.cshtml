@@ -1,0 +1,50 @@
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+
+<div>
+    <h1>Calendar</h1>
+</div>
+
+<div class="calendar-view__calendar-wrapper">
+    <div id="fullCalendar">
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var calendarEl;
+        var calendar;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            calendarEl = document.getElementById('fullCalendar');
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth'
+            });
+            
+            calendar.render();
+            fetchCalendarData();
+        });
+        
+        function fetchCalendarData() {
+            $.ajax({
+                url: '@Url.Action("FetchCalendarData", "Task")',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: successFunction,
+                error: errorFunction
+            });
+        }
+        
+        function successFunction(params) {
+            console.log(params);
+
+            for (let i = 0; i < params.length; i++) {
+                calendar.addEvent(params[i]);
+            }
+        }
+
+        function errorFunction() {
+            console.log("error TODO");
+        }
+    </script>
+}
