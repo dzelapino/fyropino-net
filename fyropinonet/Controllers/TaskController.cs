@@ -22,7 +22,8 @@ public class TaskController : Controller
     {
         return RedirectToAction("List");
     }
-    
+            DateTime endDate;
+
     [HttpGet]
     public IActionResult List()
     {
@@ -45,6 +46,24 @@ public class TaskController : Controller
         List<Task> tasks = _context.Tasks.Include(t => t.Contractors).ToList();
 
         foreach (var task in tasks)
+        {
+            model.Add(new FullCalendarEvent(task.Id, task.Name, task.StartDate, task.EndDate));
+        }
+        
+        return new JsonResult(model);
+    }
+    
+    [HttpGet] 
+    public IActionResult FetchCalendarDataByYearAndMonth(int year, int month)
+    {
+        var model = new List<FullCalendarEvent>();
+        
+        DateTime startDate = new DateTime(year, month, 1);
+        DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+        
+        List<Task> tasksNarrowedToDate = _context.Tasks.Where(t => (t.StartDate >= startDate && t.StartDate <= endDate) || (t.EndDate >= startDate && t.EndDate<= endDate)).ToList();
+
+        foreach (var task in tasksNarrowedToDate)
         {
             model.Add(new FullCalendarEvent(task.Id, task.Name, task.StartDate, task.EndDate));
         }

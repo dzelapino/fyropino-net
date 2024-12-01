@@ -5,6 +5,20 @@
 </div>
 
 <div class="calendar-view__calendar-wrapper">
+    <div>
+        <button id="calendarMoveBackwards" onclick="calendarMoveBackwards();">
+            <span>
+                Prev
+            </span>
+        </button>
+
+        <button id="calendarMoveForward" onclick="calendarMoveForwards();">
+            <span>
+                Next
+            </span>
+        </button>
+    </div>
+    
     <div id="fullCalendar">
     </div>
 </div>
@@ -22,12 +36,22 @@
             });
             
             calendar.render();
-            fetchCalendarData();
+            initialFetchCalendarData();
         });
         
-        function fetchCalendarData() {
+        function initialFetchCalendarData() {
+            var year = calendar.getDate().getFullYear();
+            var month = calendar.getDate().getMonth() + 1;
+
+            fetchCalendarDataByYearAndMonth(year, month);
+        }
+
+        function fetchCalendarDataByYearAndMonth(year, month) {
+            
             $.ajax({
-                url: '@Url.Action("FetchCalendarData", "Task")',
+                type: "GET",
+                url: '@Url.Action("FetchCalendarDataByYearAndMonth", "Task")',
+                data: {year: year, month: month},
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: successFunction,
@@ -36,7 +60,7 @@
         }
         
         function successFunction(params) {
-            console.log(params);
+            calendar.removeAllEvents();
 
             for (let i = 0; i < params.length; i++) {
                 calendar.addEvent(params[i]);
@@ -45,6 +69,24 @@
 
         function errorFunction() {
             console.log("error TODO");
+        }
+        
+        function calendarMoveForwards() {
+            calendar.next();
+            
+            var year = calendar.getDate().getFullYear();
+            var month = calendar.getDate().getMonth() + 1;
+
+            fetchCalendarDataByYearAndMonth(year, month);
+        }
+        
+        function calendarMoveBackwards() {
+            calendar.prev();
+            
+            var year = calendar.getDate().getFullYear();
+            var month = calendar.getDate().getMonth() + 1;
+
+            fetchCalendarDataByYearAndMonth(year, month);
         }
     </script>
 }
