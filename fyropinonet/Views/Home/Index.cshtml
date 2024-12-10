@@ -1,8 +1,72 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center my-5 p-5">
+    <div class="jumbotron bg-gradient p-5 text-white rounded">
+        <h1 class="display-4 fw-bold">Welcome to fyropinonet</h1>
+        <p class="lead">Your go-to solution for managing tasks and contractors seamlessly.</p>
+        <hr class="my-4" style="border-top: 1px solid rgba(255,255,255,0.5);">
+        <p>Start exploring or learn more about building Web apps with ASP.NET Core.</p>
+        <a class="btn btn-primary btn-lg shadow-sm" href="https://learn.microsoft.com/aspnet/core" role="button">
+            <i class="bi bi-book"></i> Learn More
+        </a>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-people-fill"></i> Manage Contractors</h5>
+                    <p class="card-text">Easily add, edit, and track all your contractors in one place.</p>
+                    <a href="@Url.Action("Index", "Contractor")" class="btn btn-outline-primary">Go to Contractors</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-list-check"></i> Task Management</h5>
+                    <p class="card-text">Organize tasks effectively and ensure deadlines are met.</p>
+                    <a href="@Url.Action("Index", "Task")" class="btn btn-outline-primary">View Tasks</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-calendar2-week"></i> Calendar</h5>
+                    <p class="card-text">Visualize your schedule and plan ahead efficiently.</p>
+                    <a href="@Url.Action("Calendar", "Task")" class="btn btn-outline-primary">Open Calendar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    .card {
+        border: none;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    .card h5 {
+        font-weight: bold;
+    }
+    .card p {
+        text-wrap: balance;
+    }
+    .btn-outline-primary {
+        transition: all 0.3s ease;
+    }
+    .btn-outline-primary:hover {
+        color: #fff;
+        background-color: #2575fc;
+        border-color: #2575fc;
+    }
+    .container {
+        background: transparent;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: none;
+    }
+</style>

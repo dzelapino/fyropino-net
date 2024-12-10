@@ -1,46 +1,55 @@
 @model fyropinonet.Models.AddContractorViewModel
 
-<form method="post">
+<form method="post" class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="mb-4 text-center">Add Contractor</h1>
 
-    <div>
-        <h1>Add Contractor</h1>
+            <div class="card shadow-sm p-4">
+                <div class="mb-3">
+                    <label for="shortNameInput" class="form-label">Short Name</label>
+                    <input id="shortNameInput" type="text" class="form-control" asp-for="ShortName" placeholder="Enter short name" />
+                </div>
 
-        <div>
-            
-            <div>
-                <label for="shortNameInput" class="form-label">Short Name</label>
-                <input id="shortNameInput" type="text" class="form-control" asp-for="ShortName"/>
+                <div class="mb-3">
+                    <label for="fullNameInput" class="form-label">Full Name</label>
+                    <input id="fullNameInput" type="text" class="form-control" asp-for="FullName" placeholder="Enter full name" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="addressInput" class="form-label">Address</label>
+                    <input id="addressInput" type="text" class="form-control" asp-for="Address" placeholder="Enter address" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label">Email</label>
+                    <input id="emailInput" type="email" class="form-control" asp-for="Email" placeholder="Enter email" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="phoneInput" class="form-label">Phone</label>
+                    <input id="phoneInput" type="tel" class="form-control" asp-for="Phone" placeholder="Enter phone number" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="colorInput" class="form-label">Color</label>
+                    <input id="colorInput" type="text" class="form-control" asp-for="Color" placeholder="Enter color" />
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-6 text-start">
+                        <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label for="fullNameInput" class="form-label">Full Name</label>
-                <input id="fullNameInput" type="text" class="form-control" asp-for="FullName"/>
+            <div class="alert alert-info mt-4" role="alert">
+                <p class="mb-0">Please ensure all fields are filled in correctly before submitting.</p>
             </div>
-            
-            <div>
-                <label for="addressInput" class="form-label">Address</label>
-                <input id="addressInput" type="text" class="form-control" asp-for="Address"/>
-            </div>
-            
-            <div>
-                <label for="emailInput" class="form-label">Email</label>
-                <input id="emailInput" type="text" class="form-control" asp-for="Email"/>
-            </div>
-            
-            <div>
-                <label for="phoneInput" class="form-label">Phone</label>
-                <input id="phoneInput" type="text" class="form-control" asp-for="Phone"/>
-            </div>
-            
-            <div>
-                <label for="colorInput" class="form-label">Color</label>
-                <input id="colorInput" type="text" class="form-control" asp-for="Color"/>
-            </div>
-            
-            <div>
-                <button type="submit" class="btn btn-primary">Add</button>
-            </div>
+
         </div>
     </div>
-
 </form>
