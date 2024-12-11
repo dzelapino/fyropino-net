@@ -18,7 +18,7 @@
             </span>
         </button>
     </div>
-    
+
     <div id="fullCalendar">
     </div>
 </div>
@@ -26,67 +26,74 @@
 @section Scripts
 {
     <script type="text/javascript">
-        var calendarEl;
-        var calendar;
+    var calendarEl;
+    var calendar;
 
-        document.addEventListener('DOMContentLoaded', function() {
-            calendarEl = document.getElementById('fullCalendar');
-            calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth'
-            });
-            
-            calendar.render();
-            initialFetchCalendarData();
+    document.addEventListener('DOMContentLoaded', function() {
+        calendarEl = document.getElementById('fullCalendar');
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
         });
-        
-        function initialFetchCalendarData() {
-            var year = calendar.getDate().getFullYear();
-            var month = calendar.getDate().getMonth() + 1;
 
-            fetchCalendarDataByYearAndMonth(year, month);
-        }
+        calendar.render();
+        initialFetchCalendarData();
+    });
 
-        function fetchCalendarDataByYearAndMonth(year, month) {
-            
-            $.ajax({
-                type: "GET",
-                url: '@Url.Action("FetchCalendarDataByYearAndMonth", "Task")',
-                data: {year: year, month: month},
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: successFunction,
-                error: errorFunction
+    function initialFetchCalendarData() {
+        var year = calendar.getDate().getFullYear();
+        var month = calendar.getDate().getMonth() + 1;
+
+        fetchCalendarDataByYearAndMonth(year, month);
+    }
+
+    function fetchCalendarDataByYearAndMonth(year, month) {
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("FetchCalendarDataByYearAndMonth", "Task")',
+            data: {year: year, month: month},
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: successFunction,
+            error: errorFunction
+        });
+    }
+
+    function successFunction(tasks) {
+    console.log(tasks)
+        calendar.removeAllEvents();
+
+        for (let i = 0; i < tasks.length; i++) {
+            calendar.addEvent({
+                title: tasks[i].title,
+                start: tasks[i].start,
+                end: tasks[i].end,
+                backgroundColor: tasks[i].color, 
+                borderColor: tasks[i].color 
             });
         }
-        
-        function successFunction(params) {
-            calendar.removeAllEvents();
+    }
 
-            for (let i = 0; i < params.length; i++) {
-                calendar.addEvent(params[i]);
-            }
-        }
+    function errorFunction() {
+        console.log("Error fetching calendar data.");
+    }
 
-        function errorFunction() {
-            console.log("error TODO");
-        }
-        
-        function calendarMoveForwards() {
-            calendar.next();
-            
-            var year = calendar.getDate().getFullYear();
-            var month = calendar.getDate().getMonth() + 1;
+    function calendarMoveForwards() {
+        calendar.next();
 
-            fetchCalendarDataByYearAndMonth(year, month);
-        }
-        
-        function calendarMoveBackwards() {
-            calendar.prev();
-            
-            var year = calendar.getDate().getFullYear();
-            var month = calendar.getDate().getMonth() + 1;
+        var year = calendar.getDate().getFullYear();
+        var month = calendar.getDate().getMonth() + 1;
 
-            fetchCalendarDataByYearAndMonth(year, month);
-        }
-    </script>
+        fetchCalendarDataByYearAndMonth(year, month);
+    }
+
+    function calendarMoveBackwards() {
+        calendar.prev();
+
+        var year = calendar.getDate().getFullYear();
+        var month = calendar.getDate().getMonth() + 1;
+
+        fetchCalendarDataByYearAndMonth(year, month);
+    }
+</script>
 }

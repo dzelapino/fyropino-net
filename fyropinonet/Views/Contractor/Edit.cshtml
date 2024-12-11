@@ -1,61 +1,121 @@
 @model Contractor
 
+<form method="post" class="mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <h1 class="text-center mb-4 display-6 fw-bold text-light">Edit Contractor</h1>
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <!-- Short Name -->
+                    <div class="mb-4">
+                        <label for="shortNameInput" class="form-label text-light fw-semibold">Short Name</label>
+                        <input id="shortNameInput" type="text" class="form-control" asp-for="ShortName" placeholder="Enter short name" />
+                    </div>
 
-<form method="post">
+                    <!-- Full Name -->
+                    <div class="mb-4">
+                        <label for="fullNameInput" class="form-label text-light fw-semibold">Full Name</label>
+                        <input id="fullNameInput" type="text" class="form-control" asp-for="FullName" placeholder="Enter full name" />
+                    </div>
 
-    <div>
-        <h1>Edit Contractor</h1>
+                    <!-- Address -->
+                    <div class="mb-4">
+                        <label for="addressInput" class="form-label text-light fw-semibold">Address</label>
+                        <input id="addressInput" type="text" class="form-control" asp-for="Address" placeholder="Enter address" />
+                    </div>
 
-        <div>
-            
-            <div>
-                <label for="idInput" class="form-label">Id</label>
-                <input id="idInput" type="text" class="form-control" asp-for="Id" readonly="readonly"/>
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <label for="emailInput" class="form-label text-light fw-semibold">Email</label>
+                        <input id="emailInput" type="email" class="form-control" asp-for="Email" placeholder="Enter email" />
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="mb-4">
+                        <label for="phoneInput" class="form-label text-light fw-semibold">Phone</label>
+                        <input id="phoneInput" type="tel" class="form-control" asp-for="Phone" placeholder="Enter phone number" />
+                    </div>
+
+                    <!-- Color -->
+                    <div class="mb-4">
+                        <label for="colorInput" class="form-label text-light fw-semibold">Color</label>
+                        <input id="colorInput" type="text" class="form-control" asp-for="Color" placeholder="Enter color" />
+                    </div>
+
+                    <!-- Is Active -->
+                    <div class="mb-4 form-check">
+                        <input id="isActiveInput" type="checkbox" class="form-check-input" asp-for="IsActive" />
+                        <label for="isActiveInput" class="form-check-label text-light">Is Active</label>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="row mt-4">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary w-100">Save</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger w-100" asp-action="Delete" asp-controller="Contractor">Delete</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <label for="shortNameInput" class="form-label">Short Name</label>
-                <input id="shortNameInput" type="text" class="form-control" asp-for="ShortName"/>
-            </div>
-
-            <div>
-                <label for="fullNameInput" class="form-label">Full Name</label>
-                <input id="fullNameInput" type="text" class="form-control" asp-for="FullName"/>
-            </div>
-
-            <div>
-                <label for="addressInput" class="form-label">Address</label>
-                <input id="addressInput" type="text" class="form-control" asp-for="Address"/>
-            </div>
-
-            <div>
-                <label for="emailInput" class="form-label">Email</label>
-                <input id="emailInput" type="text" class="form-control" asp-for="Email"/>
-            </div>
-
-            <div>
-                <label for="phoneInput" class="form-label">Phone</label>
-                <input id="phoneInput" type="text" class="form-control" asp-for="Phone"/>
-            </div>
-
-            <div>
-                <label for="colorInput" class="form-label">Color</label>
-                <input id="colorInput" type="text" class="form-control" asp-for="Color"/>
-            </div>
-
-            <div>
-                <label for="isActiveInput" class="form-check-label">Is Active</label>
-                <input id="isActiveInput" type="checkbox" class="form-check-input" asp-for="IsActive"/>
-            </div>
-
-            <div>
-                <button type="submit" class="btn btn-primary">Save</button>
-
-                <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Contractor">
-                    Delete
-                </button>
+            <!-- Alert -->
+            <div class="alert alert-info mt-4 text-center shadow-sm" role="alert">
+                <i class="fas fa-info-circle me-2"></i>
+                Please review all changes before saving.
             </div>
         </div>
     </div>
-
 </form>
+
+<!-- CSS -->
+<style>
+    .form-control {
+        border: 1px solid #444;
+        border-radius: 8px;
+        background-color: #1f1f1f;
+        color: #f8f9fa;
+        transition: all 0.3s ease-in-out;
+    }
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 8px rgba(13, 110, 253, 0.2);
+        background-color: #262626;
+        color: #f8f9fa;
+    }
+    .form-label {
+        color: #adb5bd;
+    }
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        transition: background-color 0.3s ease-in-out;
+    }
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+    }
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        transition: background-color 0.3s ease-in-out;
+    }
+    .btn-danger:hover {
+        background-color: #bb2d3b;
+    }
+    .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+    .card {
+        border-radius: 12px;
+    }
+    .alert {
+        border-radius: 8px;
+        background-color: #1f1f1f;
+        color: #adb5bd;
+    }
+    h1 {
+        color: #f8f9fa;
+    }
+</style>

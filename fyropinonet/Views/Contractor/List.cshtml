@@ -1,15 +1,77 @@
 @model List<Contractor>
 
-<div>
-    <h1>Contractors</h1>
+<div class="my-4">
+    <div class="text-center mb-4">
+        <h1 class="display-5">Contractors</h1>
+        <p class="text-muted">Manage your contractors efficiently</p>
+        <a class="btn btn-secondary" asp-controller="Contractor" asp-action="Add">Add Contractor</a>
+    </div>
+
+    <div class="row">
+        @foreach (var obj in Model.OrderBy(x => x.ShortName))
+        {
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-lg border-0 mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="icon-circle me-3" style="background-color: @obj.Color; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-user text-white" style="font-size: 28px;"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1" style="color: @obj.Color;">@obj.ShortName</h5>
+                            <p class="text-muted mb-0">@obj.FullName</p>
+                        </div>
+                    </div>
+
+                    <hr class="my-3">
+
+                    <ul class="list-unstyled my-4">
+                        <li class="d-flex align-items-center mb-2">
+                            <i class="fas fa-map-marker-alt text-danger me-3"></i>
+                            <span><strong>Address:</strong> @obj.Address</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-2">
+                            <i class="fas fa-envelope text-success me-3"></i>
+                            <span><strong>Email:</strong> <a class="link-contractor" href="mailto:@obj.Email">@obj.Email</a></span>
+                        </li>
+                        <li class="d-flex align-items-center mb-2">
+                            <i class="fas fa-phone text-info me-3"></i>
+                            <span><strong>Phone:</strong> <a class="link-contractor" href="tel:@obj.Phone">@obj.Phone</a></span>
+                        </li>
+                    </ul>
+
+                    <div class="text-end">
+                        <a class="btn btn-primary" asp-controller="Contractor" asp-action="Edit" asp-route-id="@obj.Id">
+                            <i class="fas fa-edit me-2"></i>Edit Contractor
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        }
+    </div>
 </div>
 
-<div>
-    @foreach (var obj in Model.OrderBy(x => x.ShortName))
-    {
-    <div>
-        <td style="color: @obj.Color;">@obj.ShortName</td>
-        <a class="btn btn-outline-primary" asp-controller="Contractor" asp-action="Edit" asp-route-id="@obj.Id">Edit</a>
-    </div>
+<style>
+    .card {
+        border: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-</div>
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .card-title {
+        font-weight: bold;
+    }
+    .card-text {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    .link-contractor {
+        text-decoration: none;
+        color: unset;
+    }
+</style>
