@@ -1,24 +1,71 @@
 @model List<fyropinonet.Models.Task>
 
-<div>
-    <h1>Task List</h1>
+<div class="my-4">
+<div class="text-center mb-4">
+    <h1 class="display-5">Task List</h1>
+    <p class="text-muted">Manage your tasks efficiently</p>
+    <a class="btn btn-secondary" asp-controller="Task" asp-action="Add">Add Task</a>
 </div>
 
-<div>
+    <div class="row">
     @foreach (var obj in Model.OrderBy(x => x.Name))
     {
-    <div>
-        <div>@obj.Name</div>
-        <div>
-            @obj.Contractors.Count
+         <div class="col-md-4 mb-3">
+            <div class="card shadow-lg border-0 mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="icon-circle me-3" style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-tasks text-white" style="font-size: 28px;"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">@obj.Name</h5>
+                            <p class="text-muted mb-0">@obj.EndDate</p>
+                        </div>
+                    </div>
+
+                    <hr class="my-3">
+
+                    <ul class="list-unstyled my-4">
+                        <li class="d-flex align-items-center mb-2">
+                            <i class="fas fa-regular fa-calendar text-info me-3"></i>
+                            <i class="fa-regular fa-calendar-days"></i>
+                            <span><strong>Start date:</strong> @obj.StartDate</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-2">
+                            <i class="fas fa-light fa-clock text-danger me-3"></i>
+                            <span><strong>End date:</strong> @obj.EndDate</span>
+                            
+                        </li>
+                        <li class="d-flex align-items-center mb-2">
+                            <i class="fas fa-phone text-success me-3"></i>
+                            <span><strong>Contractors count:</strong> @obj.Contractors.Count</span>
+
+                        </li>
+                        <li class="d-flex align-items-center mb-2">
+                            <span>
+                                @foreach (var contractor in obj.Contractors)
+                                {
+                                    <div>@contractor.ShortName</div>
+                                }
+                                </span>
+
+                        </li>
+                    </ul>
+
+                    <div class="text-end">
+                        <a class="btn btn-primary" asp-controller="Task" asp-action="Edit" asp-route-id="@obj.Id">
+                            <i class="fas fa-edit me-2"></i>Edit Task
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
-        <div>
-            @foreach (var contractor in obj.Contractors)
-            {
-                <div>@contractor.ShortName</div>
-            }
-        </div>
-        <a class="btn btn-outline-primary" asp-controller="Task" asp-action="Edit" asp-route-id="@obj.Id">Edit</a>
-    </div>
+        
+        
+        
+        
     }
+</div>
 </div>
