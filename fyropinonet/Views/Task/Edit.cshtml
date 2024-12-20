@@ -2,39 +2,105 @@
 
 <form method="post">
 
-    <div>
-        <h1>Edit Task</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <h1 class="text-center mb-4 display-6 fw-bold text-light">Edit Task</h1>
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <!-- Task ID -->
+                    @* <div class="mb-4"> *@
+                    @*     <label for="idInput" class="form-label text-light fw-semibold">Task ID</label> *@
+                    @*     <input id="idInput" type="text" class="form-control" asp-for="Id" readonly="readonly" /> *@
+                    @* </div> *@
 
-        <div>
+                    <!-- Task Name -->
+                    <div class="mb-4">
+                        <label for="nameInput" class="form-label text-light fw-semibold">Task Name</label>
+                        <input id="nameInput" type="text" class="form-control" asp-for="Name" placeholder="Enter task name" />
+                    </div>
 
-            <div>
-                <label for="idInput" class="form-label">Id</label>
-                <input id="idInput" type="text" class="form-control" asp-for="Id" readonly="readonly"/>
-            </div>
-            
-            <div>
-                <label for="nameInput" class="form-label">Name</label>
-                <input id="nameInput" type="text" class="form-control" asp-for="Name"/>
-            </div>
-            
-            <div>
-                <label for="startDateInput" class="form-label">Start Date</label>
-                <input id="startDateInput" type="datetime-local" class="form-control" asp-for="StartDate"/>
-            </div>
+                    <!-- Start Date -->
+                    <div class="mb-4">
+                        <label for="startDateInput" class="form-label text-light fw-semibold">Start Date</label>
+                        <input id="startDateInput" type="datetime-local" class="form-control" asp-for="StartDate"
+                               value="@Model.StartDate.ToString("yyyy-MM-ddTHH:mm")" />
+                    </div>
 
-            <div>
-                <label for="endDateInput" class="form-label">End Date</label>
-                <input id="endDateInput" type="datetime-local" class="form-control" asp-for="EndDate"/>
-            </div>
-            
-            <div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                    <!-- End Date -->
+                    <div class="mb-4">
+                        <label for="endDateInput" class="form-label text-light fw-semibold">End Date</label>
+                        <input id="endDateInput" type="datetime-local" class="form-control" asp-for="EndDate"
+                               value="@Model.EndDate.ToString("yyyy-MM-ddTHH:mm")" />
+                    </div>
 
-                <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Task">
-                    Delete
-                </button>
+                    <!-- Buttons -->
+                    <div class="row mt-4">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger w-100" asp-action="Delete" asp-controller="Task">
+                                Delete
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary w-100">Save</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Alert -->
+                <div class="alert alert-info mt-4 text-center shadow-sm" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Please ensure all fields are filled in correctly before saving.
+                </div>
+
             </div>
         </div>
     </div>
-
 </form>
+
+<!-- CSS -->
+<style>
+    .form-control {
+        border: 1px solid #444;
+        border-radius: 8px;
+        background-color: #1f1f1f;
+        color: #f8f9fa;
+        transition: all 0.3s ease-in-out;
+    }
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 8px rgba(13, 110, 253, 0.2);
+        background-color: #262626;
+        color: #f8f9fa;
+    }
+    .form-label {
+        color: #adb5bd;
+    }
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        transition: background-color 0.3s ease-in-out;
+    }
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+    }
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        transition: background-color 0.3s ease-in-out;
+    }
+    .btn-danger:hover {
+        background-color: #bd2130;
+    }
+    .card {
+        border-radius: 12px;
+    }
+    .alert {
+        border-radius: 8px;
+        background-color: #1f1f1f;
+        color: #adb5bd;
+    }
+    h1 {
+        color: #f8f9fa;
+    }
+</style>
