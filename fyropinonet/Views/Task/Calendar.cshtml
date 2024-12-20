@@ -1,26 +1,16 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
-<div>
-    <h1>Calendar</h1>
-</div>
-
-<div class="calendar-view__calendar-wrapper">
-    <div>
-        <button id="calendarMoveBackwards" onclick="calendarMoveBackwards();">
-            <span>
-                Prev
-            </span>
+<div class="calendar-container">
+    <div class="calendar-controls">
+        <button id="calendarMoveBackwards" class="btn btn-secondary" onclick="calendarMoveBackwards();">
+            <i class="fas fa-chevron-left"></i>
         </button>
-
-        <button id="calendarMoveForward" onclick="calendarMoveForwards();">
-            <span>
-                Next
-            </span>
+        <h1 class="calendar-title">Task Calendar</h1>
+        <button id="calendarMoveForward" class="btn btn-secondary" onclick="calendarMoveForwards();">
+            <i class="fas fa-chevron-right"></i>
         </button>
     </div>
-
-    <div id="fullCalendar">
-    </div>
+    <div id="fullCalendar" class="calendar-view"></div>
 </div>
 
 @section Scripts
@@ -28,72 +18,153 @@
     <script type="text/javascript">
     var calendarEl;
     var calendar;
-
+    
     document.addEventListener('DOMContentLoaded', function() {
         calendarEl = document.getElementById('fullCalendar');
         calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth'
+            initialView: 'dayGridMonth',
+            headerToolbar: false,
+            width: 3000,
+            height: 'auto'
+        
         });
-
+    
         calendar.render();
         initialFetchCalendarData();
     });
-
+    
     function initialFetchCalendarData() {
         var year = calendar.getDate().getFullYear();
         var month = calendar.getDate().getMonth() + 1;
-
+    
         fetchCalendarDataByYearAndMonth(year, month);
     }
-
+    
     function fetchCalendarDataByYearAndMonth(year, month) {
-
         $.ajax({
             type: "GET",
             url: '@Url.Action("FetchCalendarDataByYearAndMonth", "Task")',
-            data: {year: year, month: month},
+            data: { year: year, month: month },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: successFunction,
             error: errorFunction
         });
     }
-
+    
     function successFunction(tasks) {
-    console.log(tasks)
+        console.log(tasks);
         calendar.removeAllEvents();
-
+    
         for (let i = 0; i < tasks.length; i++) {
+    
+            // Ustal kolor na podstawie tytułu
+            if (tasks[i].title.toLowerCase().includes('epik')) {
+                taskColor = '#0067d5';
+            } else if (tasks[i].title.toLowerCase().includes('ble')) {
+                taskColor = '#28a745';
+            } else if (tasks[i].title.toLowerCase().includes('story')) {
+                taskColor = '#8226ba';
+            } else {
+                taskColor = '#b6511b';
+            }
+    
             calendar.addEvent({
                 title: tasks[i].title,
                 start: tasks[i].start,
                 end: tasks[i].end,
-                backgroundColor: tasks[i].color, 
-                borderColor: tasks[i].color 
+                backgroundColor: taskColor,
+                borderColor: taskColor
             });
         }
     }
-
+    
     function errorFunction() {
         console.log("Error fetching calendar data.");
     }
-
+    
     function calendarMoveForwards() {
         calendar.next();
-
+    
         var year = calendar.getDate().getFullYear();
         var month = calendar.getDate().getMonth() + 1;
-
+    
         fetchCalendarDataByYearAndMonth(year, month);
     }
-
+    
     function calendarMoveBackwards() {
         calendar.prev();
-
+    
         var year = calendar.getDate().getFullYear();
         var month = calendar.getDate().getMonth() + 1;
-
+    
         fetchCalendarDataByYearAndMonth(year, month);
     }
 </script>
+
+    <style>
+        
+        a {
+            text-decoration: none;
+            color: white;
+            cursor: pointer !important;
+        }
+        
+        a:hover {
+            color: #dcdcdc;
+        }
+
+        .fc .fc-scrollgrid-section-sticky > *{
+            background: #646464;
+        }
+
+        .fc-theme-standard .fc-scrollgrid {
+            border: 1px solid #646464;
+        }
+        
+        .fc-theme-standard .fc-scrollgrid * {
+            border-color: #646464;   
+            }
+
+        .fc .fc-daygrid-day.fc-day-today {
+            background: #303859;
+        }
+        
+    .calendar-container {
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 12px;
+        color: #f8f9fa;
+    }
+
+    .calendar-title {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .calendar-controls {
+        display: flex;
+        justify-content: space-between;
+        margin: 15px;
+    }
+
+    .calendar-controls .btn {
+        background-color: #0d6efd;
+        color: #f8f9fa;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: background-color 0.3s;
+    }
+
+    .calendar-controls .btn:hover {
+        background-color: #0b5ed7;
+    }
+
+    .calendar-view {
+        border-radius: 8px;
+        padding: 15px;
+    }
+</style>
 }
