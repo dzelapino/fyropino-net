@@ -37,18 +37,22 @@
                             
                         </li>
                         <li class="d-flex align-items-center mb-2">
-                            <i class="fas fa-phone text-success me-3"></i>
+                            <i class="fas fa-user text-success me-3"></i>
                             <span><strong>Contractors count:</strong> @obj.Contractors.Count</span>
 
                         </li>
-                        <li class="d-flex align-items-center mb-2">
-                            <span>
-                                @foreach (var contractor in obj.Contractors)
-                                {
-                                    <div>@contractor.ShortName</div>
-                                }
-                                </span>
-
+                        <li class="d-flex flex-column align-items-center mb-2">
+                            <button class="btn btn-link text-start p-0 toggle-button" type="button" data-bs-toggle="collapse" data-bs-target="#contractorsList-@obj.Id" aria-expanded="false" aria-controls="contractorsList-@obj.Id">
+                                <i class="fas fa-chevron-right me-2"></i> Show Contractors
+                            </button>
+                            <div id="contractorsList-@obj.Id" class="collapse align-self-start ps-3">
+                                <ul class="mt-2">
+                                    @foreach (var contractor in obj.Contractors)
+                                    {
+                                    <li>@contractor.ShortName</li>
+                                    }
+                                </ul>
+                            </div>
                         </li>
                     </ul>
 
@@ -59,13 +63,37 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-        
-        
-        
-        
     }
 </div>
 </div>
+
+
+<style>
+    /* Stylizacja przycisku */
+    .toggle-button {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+        border: none;
+        outline: none;
+        width: 100%;
+    }
+    
+    .toggle-button:focus {
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }
+
+    /* Obrót ikony w zależności od stanu */
+    .toggle-button[aria-expanded="true"] .fas {
+        transform: rotate(90deg);
+        transition: transform 0.3s ease;
+    }
+
+    .toggle-button[aria-expanded="false"] .fas {
+        transform: rotate(0deg);
+        transition: transform 0.3s ease;
+    }
+</style>
