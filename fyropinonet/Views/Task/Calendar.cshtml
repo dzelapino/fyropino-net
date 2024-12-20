@@ -2,13 +2,20 @@
 
 <div class="calendar-container">
     <div class="calendar-controls">
-        <button id="calendarMoveBackwards" class="btn btn-secondary" onclick="calendarMoveBackwards();">
-            <i class="fas fa-chevron-left"></i>
-        </button>
+        <div>
+            <button id="calendarMoveBackwards" class="btn btn-secondary" onclick="calendarMoveBackwards();">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="calendarMoveForward" class="btn btn-secondary" onclick="calendarMoveForwards();">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
         <h1 class="calendar-title">Task Calendar</h1>
-        <button id="calendarMoveForward" class="btn btn-secondary" onclick="calendarMoveForwards();">
-            <i class="fas fa-chevron-right"></i>
-        </button>
+        <div>
+            <button class="btn btn-primary" onclick="changeView('dayGridMonth')">Month</button>
+            <button class="btn btn-primary" onclick="changeView('timeGridWeek')">Week</button>
+            <button class="btn btn-primary" onclick="changeView('timeGridDay')">Day</button>
+        </div>
     </div>
     <div id="fullCalendar" class="calendar-view"></div>
 </div>
@@ -100,6 +107,10 @@
     
         fetchCalendarDataByYearAndMonth(year, month);
     }
+
+    function changeView(view) {
+        calendar.changeView(view);
+    }
 </script>
 
     <style>
@@ -116,6 +127,11 @@
 
         .fc .fc-scrollgrid-section-sticky > *{
             background: #646464;
+        }
+        
+        .fc-timeGridWeek-view .fc-scrollgrid-sync-table,
+        .fc-timeGridDay-view .fc-scrollgrid-sync-table {
+            display: none;
         }
 
         .fc-theme-standard .fc-scrollgrid {
