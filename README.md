@@ -19,3 +19,5 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update "InitialCreate"
 
 dotnet ef migrations list --json 
+
+
